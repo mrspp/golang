@@ -20,22 +20,26 @@ func dataSource(ch chan int) {
 	}
 }
 
-func runLoop(id int32, ch chan string, waitTime int) {
-	for {
-		process(id, <-ch, waitTime)
-	}
-}
-
-func process(id int32, s string, waitTime int) {
-	time.Sleep(time.Duration(waitTime) * time.Second)
-	fmt.Printf("process: %d - %s \n", id, s)
-}
-
 func main() {
+
+	// defer func() {
+	// 	r := recover()
+	// 	if r != nil {
+	// 		fmt.Println("stop hahaha")
+	// 	}
+	// }()
+
 	fmt.Printf("Start \n")
 
 	myChan := make(chan int)
 	myChan1 := make(chan int)
+
+	// defer func() {
+	// 	fmt.Println("hihi")
+	// }()
+
+	// panic("ssss")
+
 	go dataSource(myChan)
 	go dataSource(myChan1)
 
@@ -45,6 +49,8 @@ func main() {
 			fmt.Println(<-dataCh)
 		}
 	}()
+
+	// helper.RunLoop()
 
 	go func() {
 		for {
