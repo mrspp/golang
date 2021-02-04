@@ -1,4 +1,4 @@
-package main
+package fibonacci
 
 import (
 	"fmt"
@@ -15,7 +15,7 @@ func main() {
 	fmt.Println()
 	fmt.Print("Fibonacci Recursion: ")
 	for i := 0; i < n; i++ {
-		fmt.Print(strconv.Itoa(fibonacciRecursion(i)) + " ")
+		fmt.Print(strconv.Itoa(Recursion(i)) + " ")
 	}
 
 }
@@ -33,9 +33,31 @@ func fibonacciLoop(n int) int {
 	return f[n]
 }
 
-func fibonacciRecursion(n int) int {
+//Recursion to find fibonacci sequence
+func Recursion(n int) int {
 	if n <= 1 {
 		return n
 	}
-	return fibonacciRecursion(n-1) + fibonacciRecursion(n-2)
+	return Recursion(n-1) + Recursion(n-2)
+}
+
+//ResultAsString return sequence of fibonacci as string type
+func ResultAsString(n int) string {
+	// var result []int
+	var fiboStr string = ""
+	for i := 0; i < n; i++ {
+		fiboStr += strconv.Itoa(Recursion(i))
+		fiboStr += " "
+		// result = append(result, Recursion(i))
+	}
+	return fiboStr
+}
+
+//ResultAsArray return sequence of fibonacci as array type
+func ResultAsArray(n int) []int {
+	var result []int
+	for i := 0; i < n; i++ {
+		result = append(result, Recursion(i))
+	}
+	return result
 }

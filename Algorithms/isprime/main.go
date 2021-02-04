@@ -1,4 +1,4 @@
-package main
+package isprime
 
 import (
 	"fmt"
@@ -11,7 +11,8 @@ func main() {
 	findingPrimes(arr)
 }
 
-func isPrime(value int) bool {
+//IsPrime check if a number is prime
+func IsPrime(value int) bool {
 	for i := 2; i < int(math.Floor(float64(value)/2)); i++ {
 		if value%i == 0 {
 			return false
@@ -22,7 +23,7 @@ func isPrime(value int) bool {
 
 func findingPrimes(arr []int) {
 	for _, val := range arr {
-		if isPrime(val) {
+		if IsPrime(val) {
 			fmt.Println(val)
 		} else {
 			continue
