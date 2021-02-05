@@ -5,25 +5,27 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 )
 
 func main() {
-	getImage("https://pkg.go.dev/static/img/go-logo-blue.svg")
-}
-
-func getImage(url string) (string, error) {
-	res, err := http.Get(url)
+	URL := "https://picsum.photos/id/1008/5616/3744"
+	res, err := http.Get(URL)
 	if err != nil {
 		log.Println(err)
-		return "", err
+		return
 	}
-	defer res.Body.Close()
+	defer res.Body.Close() // for garbage collection
 
-	resp, err := ioutil.ReadAll(res.Body)
+	responseBodyBytes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		log.Println(err)
-		return "", err
+		return
 	}
-	fmt.Println(string(resp))
-	return string(resp), nil
+	val := http.DetectContentType(responseBodyBytes)
+	fmt.Println(val)
+	tail := strings.Split(val, "/")
+	filename := tail[len(tail)-1]
+	fmt.Println(filename)
+
 }
